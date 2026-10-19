@@ -19,7 +19,7 @@ public class Main {
     private static void testParcelGood(Person nadawca, Person odbiorca) {
         System.out.println("==== TEST 1: Good Parcel ====");
         try {
-            Parcel paczka = new Parcel("PL-100", nadawca, odbiorca, 2.1, Size.MEDIUM);
+            Parcel paczka = new Parcel("100", nadawca, odbiorca, 2.1, Size.MEDIUM);
             paczka.printInfo();
 
             paczka.changeStatus(Status.IN_LOCKER);
@@ -47,7 +47,7 @@ public class Main {
     private static void testParcelLowWeight(Person nadawca, Person odbiorca) {
         System.out.println("==== TEST 3: Parcel with low weight ====");
         try {
-            Parcel paczka = new Parcel("PL-101", nadawca, odbiorca, -5.5, Size.LARGE);
+            Parcel paczka = new Parcel("101", nadawca, odbiorca, -5.5, Size.LARGE);
 
             System.out.println("Error. This shouldn't have happend");
         } catch (IllegalArgumentException e) {
@@ -59,7 +59,7 @@ public class Main {
     private static void testParcelWithOutPerson(Person nadawca) {
         System.out.println("==== TEST 4: Parcel with out person ====");
         try {
-            Parcel paczka = new Parcel("PL-102", nadawca, null, 1.5, Size.SMALL);
+            Parcel paczka = new Parcel("102", nadawca, null, 1.5, Size.SMALL);
 
             System.out.println("Error. This shouldn't have happend");
         } catch (IllegalArgumentException e) {
