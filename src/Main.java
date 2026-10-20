@@ -1,74 +1,34 @@
-import zadanie1.Size;
-import zadanie1.Status;
-import zadanie1.Person;
-import zadanie1.Parcel;
-
-import zadanie2.Occupancy;
-import zadanie2.Locker;
-import zadanie2.ParcelLocker;
+import zadanie1.*;
+import zadanie2.*;
 
 public class Main {
     public static void main(String[] args) {
         Person nadawca = new Person("Ala", "Kowalska", "+48672365908", "Warszawa");
-        Person odbiorca = new Person("Bolesław", "Odważny", "+48561289456", "Łodź");
+        Person odbiorca = new Person("Boleslaw", "Odwazny", "+48561289456", "Lodz");
 
-        System.out.println("==== START ====\n");
+        ParcelLocker paczkomat = new ParcelLocker("SOP-01", "Monte Cassino 14");
+        paczkomat.addLocker(new Locker("L-01", Size.SMALL));
+        paczkomat.addLocker(new Locker("L-02", Size.MEDIUM));
+        paczkomat.addLocker(new Locker("L-03", Size.LARGE));
 
-        testParcelGood(nadawca, odbiorca);
-        testParcelWithOutId(nadawca, odbiorca);
-        testParcelLowWeight(nadawca, odbiorca);
-        testParcelWithOutPerson(nadawca);
-    }
+        System.out.println("Stan poczatkowy:");
+        paczkomat.printLockerInfo();
 
-    private static void testParcelGood(Person nadawca, Person odbiorca) {
-        System.out.println("==== TEST 1: Good Parcel ====");
-        try {
-            Parcel paczka = new Parcel("100", nadawca, odbiorca, 2.1, Size.MEDIUM);
-            paczka.printInfo();
+        Parcel paczkaMala = new Parcel("001", nadawca, odbiorca, 1.0, Size.SMALL);
+        Parcel paczkaDuza = new Parcel("002", nadawca, odbiorca, 5.0, Size.LARGE);
+        Parcel paczkaSrednia = new Parcel("003", nadawca, odbiorca, 3.0, Size.MEDIUM);
 
-            paczka.changeStatus(Status.IN_LOCKER);
-            System.out.println("Po zmianie statusu:");
-            paczka.printInfo();
-
-        } catch (IllegalArgumentException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-        System.out.println();
-    }
-
-    private static void testParcelWithOutId(Person nadawca, Person odbiorca) {
-        System.out.println("==== TEST 2: Parcel with out id ====");
-        try {
-            Parcel paczka = new Parcel("", nadawca, odbiorca, 1.5, Size.SMALL);
+        System.out.println("\n--- Umieszczamy paczki ---");
         
-            System.out.println("Error. This shouldn't have happend");
-        } catch (IllegalArgumentException e) {
-            System.out.println("Expected error: " + e.getMessage());
-        }
-        System.out.println();
-    }
+        paczkomat.placeParcel(paczkaMala); 
+        
+        paczkomat.placeParcel(paczkaDuza); 
+        
+        paczkomat.placeParcel(paczkaSrednia); 
 
-    private static void testParcelLowWeight(Person nadawca, Person odbiorca) {
-        System.out.println("==== TEST 3: Parcel with low weight ====");
-        try {
-            Parcel paczka = new Parcel("101", nadawca, odbiorca, -5.5, Size.LARGE);
+        System.out.println("\nStan koncowy:");
+        paczkomat.printLockerInfo();
 
-            System.out.println("Error. This shouldn't have happend");
-        } catch (IllegalArgumentException e) {
-            System.out.println("Expected error: " + e.getMessage());
-        }
-        System.out.println();
-    }
-
-    private static void testParcelWithOutPerson(Person nadawca) {
-        System.out.println("==== TEST 4: Parcel with out person ====");
-        try {
-            Parcel paczka = new Parcel("102", nadawca, null, 1.5, Size.SMALL);
-
-            System.out.println("Error. This shouldn't have happend");
-        } catch (IllegalArgumentException e) {
-            System.out.println("Expected error: " + e.getMessage());
-        }
-        System.out.println();
+        System.out.println("\nStatus paczki P-001 po umieszczeniu: " + paczkaMala.getStatus());
     }
 }
