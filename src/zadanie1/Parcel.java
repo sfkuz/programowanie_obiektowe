@@ -45,6 +45,10 @@ public class Parcel {
         return this.odbiorca;
     }
 
+    public Size getRozmiar() {
+        return this.rozmiar;
+    }
+
     public void changeStatus(Status nowyStatus) {
         this.status = nowyStatus;
     }
