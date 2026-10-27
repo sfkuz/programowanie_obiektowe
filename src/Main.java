@@ -10,25 +10,28 @@ public class Main {
         paczkomat.addLocker(new Locker("L-01", Size.SMALL));
         paczkomat.addLocker(new Locker("L-02", Size.MEDIUM));
         paczkomat.addLocker(new Locker("L-03", Size.LARGE));
+        paczkomat.addLocker(new Locker("L-04", Size.MEDIUM));
 
         System.out.println("Stan poczatkowy:");
         paczkomat.printLockerInfo();
 
-        Parcel paczkaMala = new Parcel("001", nadawca, odbiorca, 1.0, Size.SMALL);
-        Parcel paczkaDuza = new Parcel("002", nadawca, odbiorca, 5.0, Size.LARGE);
-        Parcel paczkaSrednia = new Parcel("003", nadawca, odbiorca, 3.0, Size.MEDIUM);
+        Parcel paczka1 = new Parcel("001", nadawca, odbiorca, 1.0, Size.SMALL);
+        Parcel paczka2 = new Parcel("002", nadawca, odbiorca, 5.0, Size.LARGE);
+        Parcel paczka3 = new Parcel("003", nadawca, odbiorca, 3.0, Size.MEDIUM);
+        Parcel paczka4 = new Parcel("004", nadawca, odbiorca, 2.0, Size.SMALL);
 
         System.out.println("\n--- Umieszczamy paczki ---");
         
-        paczkomat.placeParcel(paczkaMala); 
+        paczkomat.placeParcel(paczka1); 
         
-        paczkomat.placeParcel(paczkaDuza); 
+        paczkomat.placeParcel(paczka2); 
         
-        paczkomat.placeParcel(paczkaSrednia); 
+        paczkomat.placeParcel(paczka3);
+
+        paczkomat.placeParcel(paczka4);
 
         System.out.println("\nStan koncowy:");
         paczkomat.printLockerInfo();
 
-        System.out.println("\nStatus paczki P-001 po umieszczeniu: " + paczkaMala.getStatus());
     }
 }
