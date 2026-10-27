@@ -1,12 +1,12 @@
 package zadanie1;
 
-public class Parcel {
-    private String id;
-    private Person nadawca;
-    private Person odbiorca;
-    private double waga;
-    private Size rozmiar;
-    private Status status;
+public abstract class Parcel {
+    protected String id;
+    protected Person nadawca;
+    protected Person odbiorca;
+    protected double waga;
+    protected Size rozmiar;
+    protected Status status;
 
     public Parcel(String id, Person nadawca, Person odbiorca, double waga, Size rozmiar) {
         if (id == null || id.isEmpty()) {
@@ -56,5 +56,9 @@ public class Parcel {
     public void printInfo() {
         System.out.println("id: " + id + ", Nadawca: " + nadawca.GetInfoPerson() + ", Odbiorca: " + odbiorca.GetInfoPerson() + ", Waga: " + waga + ", Rozmiar: " + rozmiar + ", Status: " + status);
     }
+
+    public abstract double calculatePrice();
+
+    public abstract String getDeliveryTime();
     
 }
