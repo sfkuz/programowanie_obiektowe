@@ -1,5 +1,4 @@
 import zadanie1.*;
-import zadanie2.*;
 import zadanie3.*;
 
 import java.util.List;

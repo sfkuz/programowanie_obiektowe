@@ -3,7 +3,6 @@ package zadanie2;
 import zadanie1.Parcel;
 import zadanie1.Size;
 import zadanie1.Status;
-import zadanie2.Locker;
 
 import java.util.List;
 import java.util.ArrayList;

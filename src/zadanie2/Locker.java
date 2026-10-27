@@ -2,7 +2,6 @@ package zadanie2;
 
 import zadanie1.Size;
 import zadanie1.Parcel;
-import zadanie2.Occupancy;
 
 public class Locker {
     private String number;
