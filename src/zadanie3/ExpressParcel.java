@@ -1,7 +1,6 @@
 package zadanie3;
 
 import zadanie1.*;
-import zadanie2.*;
 
 public class ExpressParcel extends Parcel {
 
