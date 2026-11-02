@@ -1,5 +1,7 @@
 package zadanie4;
 
+import zadanie1.Person;
+
 public interface NotificationService {
-    void sendNotification(String receiver, String message);
+    void sendNotification(Person receiver, String message);
 }
