@@ -1,11 +1,15 @@
 import zadanie1.*;
+import zadanie2.*;
 import zadanie3.*;
+import zadanie4.*; 
 
 import java.util.List;
 import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
+        System.out.println("======== ZADANIE 3 ========");
+
         Person nadawca = new Person("Ala", "Kowalska", "+48672365908", "Warszawa");
         Person odbiorca = new Person("Boleslaw", "Odwazny", "+48561289456", "Lodz");
 
@@ -27,5 +31,26 @@ public class Main {
             System.out.println("Cena: " + paczka.calculatePrice() + ", Czas dostawy: " + paczka.getDeliveryTime() + "\n");
         }
 
+        System.out.println("======== ZADANIE 4 ========");
+
+        NotificationService notificationService = new EmailNotificationService();
+        LockerSelectionStrategy firstAvailableStrategy = new FirstAvailableStrategy();
+
+        ParcelLocker paczkomat1 = new ParcelLocker("SOP14M", "ul. Monte Cassinno 14, Sopot", notificationService, firstAvailableStrategy);
+
+        paczkomat1.addLocker(new Locker("L1", Size.LARGE));
+        paczkomat1.addLocker(new Locker("L2", Size.SMALL));
+        paczkomat1.addLocker(new Locker("L3", Size.MEDIUM));
+        paczkomat1.addLocker(new Locker("L4", Size.LARGE));
+
+        System.out.println("\n--- Informacje o paczkomacie ---");
+        paczkomat1.printLockerInfo();
+
+        paczkomat1.placeParcel(paczka1);
+        paczkomat1.placeParcel(paczka2);
+        paczkomat1.placeParcel(paczka3);
+
+        System.out.println("\n--- Informacje o paczkomacie po umieszczeniu przesyłek ---");
+        paczkomat1.printLockerInfo();
     }
 }
