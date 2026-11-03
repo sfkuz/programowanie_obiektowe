@@ -1,8 +1,10 @@
 package zadanie2;
 
 import zadanie1.Parcel;
-import zadanie1.Size;
 import zadanie1.Status;
+
+import zadanie4.NotificationService;
+import zadanie4.LockerSelectionStrategy;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -11,8 +13,10 @@ public class ParcelLocker {
     private String id;
     private String adress;
     private List<Locker> lockers;
+    private NotificationService notificationService;
+    private LockerSelectionStrategy lockerSelectionStrategy;
 
-    public ParcelLocker(String id, String adress) {
+    public ParcelLocker(String id, String adress, NotificationService notificationService, LockerSelectionStrategy lockerSelectionStrategy) {
         if (id == null || id.isEmpty()) {
             throw new IllegalArgumentException("id cannot be empty");
         }
@@ -23,6 +27,8 @@ public class ParcelLocker {
         this.id = id;
         this.adress = adress;
         this.lockers = new ArrayList<>();
+        this.notificationService = notificationService;
+        this.lockerSelectionStrategy = lockerSelectionStrategy;
     }
 
     public void addLocker(Locker locker) {
@@ -32,29 +38,19 @@ public class ParcelLocker {
         this.lockers.add(locker);
     }
 
-    public boolean canFit(Size rozmiarPaczki, Size rozmiarSkrytki) {
-        if (rozmiarPaczki == Size.SMALL) {
-            return true;
-        } else if (rozmiarPaczki == Size.MEDIUM) {
-            return rozmiarSkrytki == Size.MEDIUM || rozmiarSkrytki == Size.LARGE;
-        } else if (rozmiarPaczki == Size.LARGE) {
-            return rozmiarSkrytki == Size.LARGE;
-        }
-        return false;
-    }
 
     public void placeParcel(Parcel parcel) {
-        for (Locker locker : lockers) {
-            if (locker.isEmpty()) {
-                if (canFit(parcel.getRozmiar(), locker.getRozmiar())) {
-                    locker.putParcel(parcel);
-                    parcel.changeStatus(Status.IN_LOCKER);
-                    System.out.println("Paczka (" + parcel.getRozmiar() + ") umieszczona w skrytce (" + locker.getRozmiar() + ")");
-                    return;
-                }
-            }
+        Locker selectedLocker = lockerSelectionStrategy.selectLocker(this.lockers, parcel.getRozmiar());
+
+        if (selectedLocker != null) {
+            selectedLocker.putParcel(parcel);
+            parcel.changeStatus(Status.IN_LOCKER);
+            System.out.println("Paczka (" + parcel.getRozmiar() + ") umieszczona w skrytce (" + selectedLocker.getRozmiar() + ")");
+            
+            notificationService.sendNotification(parcel.getOdbiorca(), "Twoja paczka właśnie dotarła! Skrytka: " + selectedLocker.getRozmiar() + ", Paczkomat: " + this.adress);
+        } else {
+            System.out.println("Brak dostępnego miejsca dla paczki (" + parcel.getRozmiar() + ")");
         }
-        System.out.println("Brak dostępnego miejsca dla paczki (" + parcel.getRozmiar() + ")");
     }
 
     public void printLockerInfo() {
